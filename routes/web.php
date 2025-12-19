@@ -12,9 +12,17 @@ use Illuminate\Support\Facades\Route;
 Route::controller(UserController::class)->group(function () {
     // Trang chi tiết tour, sử dụng implicit model binding
     Route::get('/tours/{tour}', 'tourDetailsForm')->name('tours.show');
+    // Trang danh sách tour
+    Route::get('/tours', 'tourList')->name('tours.list');
 });
 Route::get('/', function () {
-    $tours = Tour::latest()->take(6)->get();
+    // Top 3 tour được đặt nhiều nhất
+    $tours = Tour::withCount('bookings')
+        ->orderByDesc('bookings_count')
+        ->orderByDesc('created_at')
+        ->take(3)
+        ->get();
+
     return view('pages.dashboard', compact('tours'));
 })->name('dashboard');
 

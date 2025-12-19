@@ -2,8 +2,8 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title')
 @section('content')
     <div class="top-content d-flex justify-content-center align-items-center">
-        <form class="d-flex justify-content-center m-2" role="search">
-            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+        <form method="GET" action="{{ route('tours.list') }}" class="d-flex justify-content-center m-2" role="search">
+            <input class="form-control me-2" type="search" name="search" placeholder="Tìm kiếm tour..." aria-label="Search">
             <button class="btn btn-success" type="submit">Tìm kiếm</button>
         </form>
     </div>
@@ -23,7 +23,7 @@
             </div>
             <!-- Link to Tour List -->
             <div class="d-flex justify-content-start mt-4 mb-4">
-                <a href="" class="btn btn-outline-primary btn-lg">Xem Tất Cả Các Tour</a>
+                <a href="{{ route('tours.list') }}" class="btn btn-outline-primary btn-lg">Xem Tất Cả Các Tour</a>
             </div>
         </div>
     </div>

@@ -1,54 +1,139 @@
 
+/* Card layout */
 .tour-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
     overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.tour-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
 }
 
 .tour-card img {
     width: 100%;
-    height: auto;
+    height: 220px;
+    object-fit: cover;
 }
 
 .tour-details {
-    padding: 15px;
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
 }
 
 .tour-details h3 {
-    margin-top: 0;
-    color: #007bff;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
 }
 
 .tour-details p {
-    margin: 5px 0;
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
 }
 
 .tour-details .btn {
-    margin-top: 10px;
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 600;
 }
 
 /* Responsive Styles */
+@media (max-width: 991px) {
+    .tour-card img {
+        height: 200px;
+    }
+}
+
 @media (max-width: 767px) {
     .tour-card {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
+    }
+    .tour-details {
+        gap: 4px;
     }
 }
 
 .content {
-    background-image: url('/img/background_topcontent.jpg'); /* Đường dẫn đến ảnh */
-    background-repeat: no-repeat; /* Không lặp lại ảnh */
-    background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ phần tử */
-    background-color: #000; /* Màu nền dự phòng khi ảnh không phủ kín */
-    width: 100%; /* Đảm bảo chiều rộng của phần tử là 100% */
+    background-image: url('/images/background_topcontent.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #f8fafc;
+    width: 100%;
+    padding: 40px 0;
 }
 
-.container{
-    max-width: 1000px;
-    /* margin: 80px auto; */
-    padding: 20px;
+.container {
+    max-width: 1140px;
+    padding: 28px;
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    border-radius: 14px;
+    backdrop-filter: blur(2px);
+}
+
+/* Filters */
+.filters-card {
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.filters-card .form-label {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.filters-card .form-select,
+.filters-card .form-control {
+    border-radius: 10px;
+}
+
+.filters-card .btn-primary {
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Pagination styles */
+.pagination {
+    gap: 8px;
+}
+
+.pagination .page-link {
+    border-radius: 10px;
+    padding: 8px 12px;
+    color: #0f172a;
+    border: 1px solid #e6e6e6;
+}
+
+.pagination .page-link:hover {
+    background-color: #f1f5f9;
+}
+
+.pagination .active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(13, 110, 253, 0.25);
+}
+
+.pagination .disabled .page-link {
+    color: #94a3b8;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 }
