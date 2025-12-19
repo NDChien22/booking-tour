@@ -16,7 +16,7 @@ class ForgotPasswordEmail extends Mailable
     public function __construct(
         public User $user,
         public string $resetUrl,
-        public int $expiresMinutes = 60,
+        public int $expiresMinutes = 15,
     ) {}
 
     public function envelope(): Envelope
@@ -32,7 +32,9 @@ class ForgotPasswordEmail extends Mailable
         return new Content(
             view: 'emails.forgot-password',
             with: [
-
+                'user' => $this->user,
+                'resetUrl' => $this->resetUrl,
+                'expiresMinutes' => $this->expiresMinutes,
             ],
         );
     }

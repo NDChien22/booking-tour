@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AuthService
 {
@@ -26,7 +28,7 @@ class AuthService
         }
 
         $user = Auth::user();
-        
+
         // Kiểm tra email đã được xác thực chưa
         if (is_null($user->email_verified_at)) {
             Auth::logout();
@@ -36,10 +38,10 @@ class AuthService
                 'message' => 'Vui lòng xác thực email trước khi đăng nhập. Kiểm tra hộp thư của bạn.',
                 'user' => null,
                 'unverified_email' => $user->email,
-                'user_id' => $user->id,
+                'user_id' => $user->user_id,
             ];
         }
-        
+
         return [
             'success' => true,
             'message' => 'Đăng nhập thành công.',
@@ -92,5 +94,111 @@ class AuthService
     public function sendVerificationEmail(User $user): bool
     {
         return $this->mailService->sendWelcomeEmail($user);
+    }
+
+    /**
+     * Gửi email reset password
+     */
+    public function sendPasswordResetEmail(string $email): array
+    {
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return [
+                'success' => false,
+                'message' => 'Email không tồn tại.',
+            ];
+        }
+
+        try {
+            // Xóa token cũ chưa sử dụng
+            DB::table('password_reset_tokens')
+                ->where('email', $email)
+                ->delete();
+
+            // Tạo token mới
+            $token = Str::random(64);
+            $resetUrl = route('password.reset', ['token' => $token, 'email' => $user->email]);
+
+            // Lưu token vào database
+            DB::table('password_reset_tokens')->insert([
+                'email' => $user->email,
+                'token' => $token,
+                'created_at' => now(),
+            ]);
+
+            // Gửi email
+            $this->mailService->sendPasswordResetEmail($user, $resetUrl, 15);
+
+            return [
+                'success' => true,
+                'message' => 'Liên kết đặt lại mật khẩu đã được gửi đến email của bạn.',
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'message' => 'Lỗi khi gửi email: ' . $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * Reset password
+     */
+    public function resetPassword(array $data): array
+    {
+        $token = $data['token'];
+        $email = $data['email'];
+        $password = $data['password'];
+
+        // Kiểm tra token có hợp lệ không
+        $passwordReset = DB::table('password_reset_tokens')
+            ->where('email', $email)
+            ->where('token', $token)
+            ->first();
+
+        if (!$passwordReset) {
+            return [
+                'success' => false,
+                'message' => 'Liên kết reset password không hợp lệ.',
+            ];
+        }
+
+        // Kiểm tra token đã hết hạn (15 phút)
+        $createdAt = strtotime($passwordReset->created_at);
+        if (time() - $createdAt > 900) { // 900 giây = 15 phút
+            DB::table('password_reset_tokens')
+                ->where('email', $email)
+                ->where('token', $token)
+                ->delete();
+
+            return [
+                'success' => false,
+                'message' => 'Liên kết reset password đã hết hạn. Vui lòng yêu cầu lại.',
+            ];
+        }
+
+        try {
+            // Cập nhật mật khẩu
+            $user = User::where('email', $email)->firstOrFail();
+            $user->update([
+                'password' => Hash::make($password),
+            ]);
+
+            // Xóa token đã sử dụng
+            DB::table('password_reset_tokens')
+                ->where('email', $email)
+                ->delete();
+
+            return [
+                'success' => true,
+                'message' => 'Mật khẩu đã được cập nhật thành công.',
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'message' => 'Lỗi khi cập nhật mật khẩu: ' . $e->getMessage(),
+            ];
+        }
     }
 }

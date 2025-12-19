@@ -154,7 +154,7 @@
             <div class="message">
                 Nếu nút không hoạt động, sao chép và dán liên kết sau vào trình duyệt của bạn:
             </div>
-            <p class="muted-link">{{ $resetUrl }}</p>
+            <a href="{{ $resetUrl }}"><p class="muted-link">{{ $resetUrl }}</p></a>
 
             <div class="divider"></div>
 

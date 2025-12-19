@@ -29,7 +29,7 @@
                     <button type="submit" class="btn btn-primary">Đăng Nhập</button>
                 </div>
                 <div class="form-text">
-                    <a href="{{ route('password.request') }}">Quên mật khẩu?</a>
+                    <a href="{{ route('password.forgot') }}">Quên mật khẩu?</a>
                 </div>
                 <div class="register-text">
                     <p>Chưa có tài khoản? <a href="{{ route('register') }}">Đăng ký ngay</a></p>

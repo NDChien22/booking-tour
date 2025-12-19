@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function profileUpdate(UpdateProfileRequest $request)
     {
-        $userId = $request->user()->id;
+        $userId = $request->user()->user_id;
         $data = $request->validated();
 
         $updated = $this->userRepository->updateProfile($userId, $data);

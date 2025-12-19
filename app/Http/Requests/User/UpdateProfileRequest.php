@@ -15,14 +15,14 @@ class UpdateProfileRequest extends FormRequest
 
     public function rules(): array
     {
-        $userId = $this->user()->id ?? null;
+        $userId = $this->user()->user_id ?? null;
 
         return [
             'email' => [
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users', 'email')->ignore($userId),
+                Rule::unique('users', 'email')->ignore($userId, 'user_id'),
             ],
             'phone_number' => ['required', 'string', 'max:20'],
             'full_name' => ['nullable', 'string', 'max:255'],

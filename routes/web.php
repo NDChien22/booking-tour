@@ -27,11 +27,12 @@ Route::middleware(['guest'])->group(function () {
         Route::post('/register', 'registerHandle')->name('register_handle');
 
         // Quên mật khẩu
-        Route::get('/password/forgot', 'forgotPasswordForm')->name('password.request');
-        Route::post('/password/email', 'sendPasswordResetEmail')->name('password.email');
+        Route::get('/forgot-password', 'forgotPasswordForm')->name('password.forgot');
+        Route::post('/forgot-password', 'sendPasswordResetEmail')->name('send.password.email');
 
-        Route::get('/forgot-password', 'forgotPasswordForm')->name('password.request');
-        Route::post('/forgot-password', 'sendPasswordResetEmail')->name('password.email');
+        Route::get('/password/reset/{token}', 'resetPasswordForm')->name('password.reset');
+        Route::post('/password/reset', [AuthController::class, 'resetPasswordHandle'])->name('password.reset.update');
+
 
 
         // Route xác thực email (signed URL với thời hạn 15 phút)
@@ -45,6 +46,9 @@ Route::middleware(['guest'])->group(function () {
             ->name('verification.resend');
     });
 });
+
+
+// Cho phép đặt lại mật khẩu ngay cả khi người dùng đang đăng nhập
 
 
 Route::middleware(['auth'])->group(function () {

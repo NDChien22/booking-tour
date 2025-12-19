@@ -9,7 +9,7 @@
             <h2>Quên Mật Khẩu</h2>
             <x-form-alerts></x-form-alerts>
 
-            <form method="POST" action="{{ route('password.email') }}">
+            <form method="POST" action="{{ route('send.password.email') }}">
                 @csrf
                 <div class="mb-1 mt-2">
                     <label for="user" class="form-label">Vui lòng nhập địa chỉ email để nhận liên kết đặt lại mật
