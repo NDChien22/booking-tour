@@ -1,0 +1,83 @@
+/* Hero */
+.tour-hero {
+    position: relative;
+    min-height: 300px;
+    background-size: cover;
+    background-position: center;
+}
+.tour-hero__overlay {
+    position: relative;
+    min-height: inherit;
+    padding: 3rem 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35));
+}
+
+.tour-price {
+    font-size: 2rem;
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.btn-book {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+.ratings {
+    margin-top: 15px;
+    color: #ffc107;
+}
+
+
+/* Tour Reviews Section */
+.tour-reviews {
+    margin-top: 30px;
+    border-top: 1px solid #dee2e6;
+    padding-top: 20px;
+}
+
+/* Review List */
+.review-list {
+    margin-top: 20px;
+}
+
+.review-item {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.review-rating {
+    font-size: 1.25rem;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+
+.review-content {
+    margin-top: 5px;
+}
+
+.review-content p {
+    margin: 0;
+}
+/* Nút Trở lại trang trước */
+.btn-secondary {
+    margin-bottom: 20px;
+}
+
+/* Cards & Sidebar */
+.card {
+    border: 1px solid #e9ecef;
+    border-radius: 0.75rem;
+}
+.card .card-body h3,
+.card .card-body h5,
+.card .card-body h6 {
+    color: #212529;
+}
+.sticky-sidebar {
+    position: sticky;
+    top: 90px; /* below sticky header */
+}
