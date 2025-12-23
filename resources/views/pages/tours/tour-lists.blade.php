@@ -5,7 +5,7 @@
 @endpush
 @section('content')
     <div class="content">
-        <div class="container">
+        <div class="container_body">
             <h1 class="text-center mb-4">Danh Sách Tour</h1>
             <form method="GET" action="{{ route('tours.list') }}" class="filters-card mb-4">
                 <div class="row g-3 align-items-end">

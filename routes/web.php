@@ -70,6 +70,15 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/profile', 'profileUpdate')->name('profile_update');
             Route::get('/password/change', 'passwordForm')->name('password.change');
             Route::put('/password', 'updatePassword')->name('password.update');
+
+            //Dat tour
+            Route::get('/tours/{tour}/booking', 'tourBookingForm')->name('tours.booking');
+            Route::post('/tours/{tour}/booking', 'tourBookingHandle')->name('tours.booking.handle');
+
+            // Booking history
+            Route::get('/bookings/history', 'bookingHistory')->name('bookings.history');
+            Route::post('/bookings/{booking}/cancel', 'cancelBooking')->name('bookings.cancel');
+            Route::post('/bookings/{booking}/review', 'submitReview')->name('bookings.review');
         });
     });
 

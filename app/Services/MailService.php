@@ -45,4 +45,15 @@ class MailService
             return false;
         }
     }
+
+    public function sendTourBookingConfirmationEmail(User $user, $tour, $booking): bool
+    {
+        try {
+            Mail::to($user->email)->send(new \App\Mail\TourBookingConfirmation($user, $tour, $booking));
+            return true;
+        } catch (\Throwable $e) {
+            Log::error('Failed to send tour booking confirmation email: ' . $e->getMessage());
+            return false;
+        }
+    }
 }

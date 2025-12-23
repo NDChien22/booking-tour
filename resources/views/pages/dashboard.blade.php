@@ -1,6 +1,8 @@
 @extends('layout.pages-layout')
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Page Title')
 @section('content')
+    <x-form-alerts></x-form-alerts>
+
     <div class="top-content d-flex justify-content-center align-items-center">
         <form method="GET" action="{{ route('tours.list') }}" class="d-flex justify-content-center m-2" role="search">
             <input class="form-control me-2" type="search" name="search" placeholder="Tìm kiếm tour..." aria-label="Search">

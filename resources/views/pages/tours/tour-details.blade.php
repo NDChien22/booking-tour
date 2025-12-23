@@ -19,8 +19,8 @@
                     <h1 class="display-5 fw-bold text-white mb-2">{{ $tour->title }}</h1>
                     <div class="d-flex flex-wrap gap-2">
                         <span class="badge bg-success bg-opacity-75">Thời gian: {{ $tour->duration }} ngày</span>
-                        {{-- <span class="badge bg-primary bg-opacity-75">Điểm đi:
-                            {{ optional($tour->city)->city_name ?? 'Đang cập nhật' }}</span> --}}
+                        <span class="badge bg-primary bg-opacity-75">Điểm đi:
+                            {{ optional($tour->city)->city_name ?? 'Đang cập nhật' }}</span>
                     </div>
                 </div>
             </div>
@@ -123,9 +123,9 @@
                                     <span class="text-muted">Giá từ</span>
                                     <span class="tour-price">{{ number_format($tour->price, 0, ',', '.') }} VNĐ</span>
                                 </div>
-                                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#bookingModal">
+                                <a href="{{ route('tours.booking', ['tour' => $tour->tour_id]) }}"><button class="btn btn-primary w-100">
                                     Đặt tour ngay
-                                </button>
+                                </button></a>
                             </div>
                         </div>
 
@@ -139,7 +139,7 @@
                                     </li>
                                     <li class="d-flex align-items-center py-1">
                                         <span class="badge rounded-pill bg-light text-dark me-2">Điểm đi</span>
-                                        {{-- {{ optional($tour->city)->city_name ?? 'Đang cập nhật' }} --}}
+                                        {{ optional($tour->city)->city_name ?? 'Đang cập nhật' }}
                                     </li>
                                 </ul>
                             </div>

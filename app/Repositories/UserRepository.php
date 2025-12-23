@@ -21,6 +21,11 @@ class UserRepository extends BaseRepository
         return $this->model->where('username', $username)->first();
     }
 
+    public function getUserById(int $id): ?User
+    {
+        return $this->model->find($id);
+    }
+
     public function getUsersByRole(string $role): Collection
     {
         return $this->model->where('role', $role)->get();
@@ -47,6 +52,16 @@ class UserRepository extends BaseRepository
     public function changePassword(int $id, string $hashedPassword): bool
     {
         return $this->update($id, ['password' => $hashedPassword]);
+    }
+
+    public function createTourBooking(int $userId, int $tourId, array $bookingData)
+    {
+        $user = $this->model->find($userId);
+        if (!$user) {
+            return null;
+        }
+
+        return $user->bookings()->create(array_merge($bookingData, ['tour_id' => $tourId]));
     }
 }
 ?>

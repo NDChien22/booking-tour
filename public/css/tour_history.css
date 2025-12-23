@@ -1,6 +1,6 @@
 /* Content Styles */
 .content {
-    background-image: url('/img/background_topcontent.jpg'); /* Đường dẫn đến ảnh */
+    background-image: url('/images/background_topcontent.jpg'); /* Đường dẫn đến ảnh */
     background-repeat: no-repeat; /* Không lặp lại ảnh */
     background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ phần tử */
     background-color: #000; /* Màu nền dự phòng khi ảnh không phủ kín */
@@ -12,10 +12,11 @@
 .history-container {
     max-width: 1000px;
     margin: 40px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
 }
 
 .history-container h2 {
